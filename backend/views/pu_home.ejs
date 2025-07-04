@@ -1,0 +1,71 @@
+<h1 class="mb-3">👮‍♂️ Панель Пункту управління</h1>
+<p class="text-muted">Вітаємо, <strong><%= user.login %></strong>!</p>
+
+<hr>
+<h3 class="mb-4">📌 Останні зведені розходи</h3>
+
+<%
+  function formatUkrainianDate(dateInput) {
+    const dateStr = typeof dateInput === 'string'
+      ? dateInput
+      : new Date(dateInput).toISOString().split('T')[0];
+
+    const [year, month, day] = dateStr.split("-");
+    const months = [
+      "січня", "лютого", "березня", "квітня", "травня", "червня",
+      "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
+    ];
+    const monthName = months[parseInt(month, 10) - 1];
+    return `${parseInt(day, 10)} ${monthName} ${year} р.`;
+  }
+%>
+
+<div class="row g-4">
+  <% summaries.forEach(function(summary) { %>
+    <div class="col-md-6 col-xl-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">
+            📅 <%= formatUkrainianDate(summary.summary_date) %>
+          </h5>
+
+          <p class="card-text">
+            👥 <strong>Присутні:</strong> <%= summary.present_count %><br>
+            ❌ <strong>Відсутні:</strong> <%= summary.absent_count %>
+          </p>
+
+          <% if (summary.location_name) { %>
+            <span class="badge bg-info mb-2 text-dark">📍 Локація: <%= summary.location_name %></span>
+          <% } else if (summary.location_id) { %>
+            <span class="badge bg-info mb-2 text-dark">📍 Локація №<%= summary.location_id %></span>
+          <% } else if (summary.faculty_name) { %>
+            <span class="badge bg-primary mb-2 text-wrap">🎓 Факультет: <%= summary.faculty_name %></span>
+          <% } else if (summary.faculty_id) { %>
+            <span class="badge bg-primary mb-2">🎓 Факультет №<%= summary.faculty_id %></span>
+          <% } else { %>
+            <span class="badge bg-secondary mb-2">❓ Невідоме джерело</span>
+          <% } %>
+
+          <% if (summary.reasons && summary.reasons.length > 0) { %>
+            <p class="fw-bold mt-2 mb-1">Причини відсутності:</p>
+            <ul class="mb-3 ps-3">
+              <% summary.reasons.forEach(function(r) { %>
+                <li><%= r.reason %>: <%= r.count %></li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <p class="text-muted mt-2">Причини не вказані</p>
+          <% } %>
+
+          <div class="mt-auto">
+            <form action="/pu/export/<%= summary.id %>" method="GET">
+              <button class="btn btn-sm btn-outline-primary w-100" type="submit">
+                🧾 Експортувати у Word
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>

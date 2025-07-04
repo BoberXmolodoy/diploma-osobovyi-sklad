@@ -1,0 +1,16 @@
+# ===== BACKEND (Node.js) =====
+/backend/node_modules/
+/backend/.env
+/backend/*.log
+
+# ===== ANDROID (Gradle, IDE) =====
+/android/.gradle/
+/android/.idea/
+/android/build/
+/android/app/build/
+/android/local.properties
+/android/*.iml
+
+# ===== Сміття ОС =====
+.DS_Store
+Thumbs.db

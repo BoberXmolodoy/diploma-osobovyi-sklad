@@ -1,0 +1,56 @@
+body {
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1, h3 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  color: #1e2a38;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #333;
+}
+
+.badge {
+  white-space: normal !important; /* ✅ Дозволяє перенесення рядка */
+  word-break: break-word;         /* ✅ Дозволяє розривати довгі слова */
+  line-height: 1.4;
+  padding: 8px 12px;
+  display: inline-block;
+  max-width: 100%; /* Щоб не вилазило за межі карточки */
+  text-align: left;
+}
+
+.badge.bg-info {
+  background-color: #00bcd4;
+  color: #fff;
+}
+
+.badge.bg-primary {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.btn-outline-primary {
+  border-radius: 12px;
+  font-weight: 500;
+}
